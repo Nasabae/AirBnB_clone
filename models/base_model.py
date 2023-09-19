@@ -44,11 +44,8 @@ class BaseModel:
 
     def to_dict(self):
         """ returns dictionary containing all dicts values instances"""
-        my_dict = {}
-        my_dict["__class__"] = self.__class__.__name__
-        for attr in self.__dict__:
-            if attr == "created_at" or attr == "updated_at":
-                my_dict[attr] = getattr(self, attr).isoformat()
-            else:
-                my_dict[attr] = getattr(self, attr)
-        return my_dict
+        rdict = self.__dict__.copy()
+        rdict["created_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
+        rdict["__class__"] = self.__class__.__name__
+        return rdict
