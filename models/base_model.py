@@ -44,8 +44,9 @@ class BaseModel:
 
     def to_dict(self):
         """ returns dictionary containing all dicts values instances"""
-        rdict = self.__dict__.copy()
-        rdict["created_at"] = self.created_at.isoformat()
-        rdict["updated_at"] = self.updated_at.isoformat()
-        rdict["__class__"] = self.__class__.__name__
-        return rdict
+        cpy_d = dict(self.__dict__)
+        cpy_d['__class__'] = self.__class__.__name__
+        cpy_d['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        cpy_d['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
+        return (cpy_d)
